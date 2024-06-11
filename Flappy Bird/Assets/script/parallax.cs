@@ -1,18 +1,11 @@
 using UnityEngine;
 
-public class parallax : MonoBehaviour
+public class Parallax : MonoBehaviour
 {
-    private MeshRenderer meshRenderer;
-
-    public float animationSpeed = 1f;
-
-    private void Awake()
+    void Update()
     {
-        meshRenderer = GetComponent<MeshRenderer>();
-    }
-
-    private void Update()
-    {
-        meshRenderer.material.mailTextureOffset += new Vector2(animationSpeed * Time.deltaTime, 0);
+       float offsetX = Time.time * 2f;
+       float offsetY = Time.time * 0;
+       GetComponent<Renderer>().material.mainTextureOffset = new Vector2(offsetX, offsetY);
     }
 }
