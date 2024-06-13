@@ -2,11 +2,23 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
+    public SpriteRenderer spriteRenderer;
     private Vector3 direction;
+    public Sprite[] sprites;
+    private int spriteIndex;
 
     public float gravity = -9.8f;
     public float strength = 5f;
 
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        InvokeRepeating(nameof(AnimateSprite), 0.15f, 0.15f);
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
@@ -16,5 +28,16 @@ public class NewBehaviourScript : MonoBehaviour
 
         direction.y += gravity * Time.deltaTime;
         transform.position += direction * Time.deltaTime;
+    }
+
+    private void AnimateSprite()
+    {
+        spriteIndex++;
+
+        if (spriteIndex >= sprites.Length){
+            spriteIndex = 0;
+        }
+
+        spriteRenderer.sprite = sprites[spriteIndex];
     }
 }
